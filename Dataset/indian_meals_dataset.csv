@@ -1,0 +1,10 @@
+Meal_ID,Name,Calories,Protein,Carbs,Fat,Type,Meal_Type,Goal,Tags
+M101,Oats with Banana,350,10g,60g,5g,Veg,breakfast,weight_gain,"breakfast, high_carb, weight_gain"
+M102,Poha,250,6g,40g,4g,Veg,breakfast,weight_loss,"breakfast, low_fat, light"
+M103,Idli with Sambar,300,8g,50g,3g,Veg,breakfast,maintenance,"breakfast, balanced"
+M104,Grilled Chicken with Rice,450,40g,50g,20g,NonVeg,lunch,weight_loss,"lunch, high_protein"
+M105,Rajma Chawal,500,18g,70g,8g,Veg,lunch,weight_gain,"lunch, high_carb"
+M106,Paneer Bhurji with Roti,400,20g,35g,15g,Veg,lunch,maintenance,"lunch, protein_rich"
+M107,Moong Dal Khichdi,300,12g,45g,4g,Veg,dinner,weight_loss,"dinner, light"
+M108,Chicken Curry with Chapati,500,35g,40g,18g,NonVeg,dinner,weight_gain,"dinner, high_protein"
+M109,Vegetable Pulao with Curd,450,10g,60g,10g,Veg,dinner,maintenance,"dinner, balanced"
