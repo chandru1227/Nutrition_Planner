@@ -10,7 +10,7 @@ goal_le = joblib.load('Model/goal_le.pkl')
 meal_le = joblib.load('Model/meal_le.pkl')
 
 # Load meals dataset
-meals_df = pd.read_csv('Dataset/indian_meals_1000_dataset.csv') 
+meals_df = pd.read_csv('Dataset/indian_meals_1000_dataset.csv')
 
 # BMR Calculation
 def calculate_bmr(row):
@@ -34,13 +34,14 @@ def calculate_bmr(row):
         return maintenance + 400
     return maintenance
 
-# Prediction function (Activity Level hardcoded as 'lightly_active')
+# Prediction function using default activity level
 def predict_meal(age, gender, height, weight, goal):
     gender_enc = gender_le.transform([gender])[0]
     goal_enc = goal_le.transform([goal])[0]
-    
-    # Use default activity level internally
-    activity_enc = activity_le.transform(['lightly_active'])[0]
+
+    # Default activity level set here
+    activity_default = 'lightly_active'
+    activity_enc = activity_le.transform([activity_default])[0]
 
     bmr_user = calculate_bmr({
         "Age": age,
@@ -51,6 +52,7 @@ def predict_meal(age, gender, height, weight, goal):
         "Goal": goal_enc
     })
 
+    # Prepare input for model (must match training features)
     input_vec = pd.DataFrame(
         [[age, gender_enc, height, weight, activity_enc, goal_enc]],
         columns=['Age', 'Gender', 'Height_cm', 'Weight_kg', 'Activity_Level', 'Goal']
@@ -89,6 +91,5 @@ if st.button("Get Meal Plan"):
                 st.dataframe(display_info)
             else:
                 st.warning(f"No details found for meal code: {meal_code}")
-
     except ValueError as e:
         st.error(f"Error: {e}")
