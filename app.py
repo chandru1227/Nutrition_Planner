@@ -7,7 +7,6 @@ model = joblib.load('Model/meal_recommendation_model.pkl')
 gender_le = joblib.load('Model/gender_le.pkl')
 activity_le = joblib.load('Model/activity_le.pkl')
 goal_le = joblib.load('Model/goal_le.pkl')
-pref_le = joblib.load('Model/pref_le.pkl')
 meal_le = joblib.load('Model/meal_le.pkl')
 
 # Load meals dataset
@@ -36,11 +35,10 @@ def calculate_bmr(row):
     return maintenance
 
 # Prediction function
-def predict_meal(age, gender, height, weight, activity, goal, preference):
+def predict_meal(age, gender, height, weight, activity, goal):
     gender_enc = gender_le.transform([gender])[0]
     activity_enc = activity_le.transform([activity])[0]
     goal_enc = goal_le.transform([goal])[0]
-    pref_enc = pref_le.transform([preference])[0]  # not used in model, but available if needed
 
     bmr_user = calculate_bmr({
         "Age": age,
@@ -76,13 +74,10 @@ height = st.number_input("Height (cm)", min_value=100, max_value=250, value=170)
 weight = st.number_input("Weight (kg)", min_value=30, max_value=200, value=70)
 activity = st.selectbox("Activity Level", activity_le.classes_)
 goal = st.selectbox("Fitness Goal", goal_le.classes_)
-preference = st.selectbox("Food Preference", pref_le.classes_)
 
 if st.button("Get Meal Plan"):
     try:
-        result = predict_meal(age, gender, height, weight, activity, goal, preference)
-        # st.subheader("🍳 Recommended Meal IDs")
-        # st.json(result)
+        result = predict_meal(age, gender, height, weight, activity, goal)
 
         st.subheader("📋 Meal Details (Name, Calories, Protein, Carbs, Fat)")
         for meal_type, meal_code in result.items():
